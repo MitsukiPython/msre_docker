@@ -1,7 +1,7 @@
 # Overview for my fork of the code
-The further sections are the original author's work, which I did not wish to modify as it would be useful for people who would also want to run it on their computers. In September 2024, I used this code to write a research paper on neutronics of the MSRE, and modified some of the code to fit physics parameters. I learned OpenMC, and used Monte Carlo distributions to model the code. Most of the code was written by a nuclear engineer, and not myself, but I have attached to this library a research paper I used, which also includes the modified code. If you would like to see the modified code, I have also uploaded it here.
+This repository contains my personal fork of the MSRE codebase, with modifications made for my September 2024 research on the neutronics of the Molten-Salt Reactor Experiment." The further sections are the original author's work, which I did not wish to modify as it would be useful for people who would also want to run it on their computers. In September 2024, I used this code to write a research paper on neutronics of the MSRE, and modified some of the code to fit physics parameters. I learned OpenMC, and used Monte Carlo distributions to model the code. Most of the base boilerplate code was written by a nuclear engineer, and not myself, but I have attached to this library a research paper I used, which also includes the modified code. I
 
-# Changes in my fork
+# Changes to fuel salt composition in my fork
 I conducted independent research about the parameters of the reactor to avoid any hidden assumptions. I went through archives of the Oak Ridge National Laboratory and found that some of the assumptions in the code did not fully reflect conditions in the MSRE. The variable molar_comp, which outlined the composition of the fuel salt, was modified in the following manner:
 Original Code:
 molar_comp={'LiF':0.67,'BeF2':0.23, 'ZrF4':0.05, 'UF4':0.0079}
@@ -9,8 +9,12 @@ molar_comp={'LiF':0.67,'BeF2':0.23, 'ZrF4':0.05, 'UF4':0.0079}
 My Code:
 molar_comp={'LiF':0.65,'BeF2':0.291, 'ZrF4':0.05, 'UF4':0.009}
 
-Additionally, I modified the neutronics, rather than making it a 
 
+# Changes to neutron source energy distribution in my fork
+Additionally, I modified the neutronics, rather than setting it as an isotropic energy distribution where every neutron started at the same energy, I modified it such that the neutron source followed a Maxwell distribution. The energy_distribution variable was set such that it equalled openmc.stats.Maxwell(0.025). This led to the simulation producing comparable data to the original reactor, and a higher resemblance to real world physics, where neutrons follow a Maxwell-Boltzmann distribution.
+
+# My modified files
+/docs/MSRE_Neutronics_Paper.pdf
 
 # This repository is about to move to https://github.com/openmsr/msre/msre\_notebook
 Its new location is very similar: It is now a subdirectory "msre\_notebook" of the main [msre](https://github.com/openmsr/msre) repository.
